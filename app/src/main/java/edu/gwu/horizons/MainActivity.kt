@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //val prefs = getSharedPreferences("horizons", Context.MODE_PRIVATE) //sharedPreferences so far
+        val prefs = getSharedPreferences("horizons", Context.MODE_PRIVATE) //sharedPreferences so far
 
         firebaseAuth = FirebaseAuth.getInstance()
         //firebaseAnalytics = FirebaseAnalytics.getInstance(this)
@@ -61,10 +61,10 @@ class MainActivity : AppCompatActivity() {
         password = findViewById(R.id.password)
         login = findViewById(R.id.login)
 
-        //if (prefs.getBoolean("REMEMBER", false)) {
+        if (prefs.getBoolean("REMEMBER", false)) {
         username.addTextChangedListener(textWatcher)
         password.addTextChangedListener(textWatcher)
-        /*} else {
+        } else {
             username.setText(prefs.getString("SAVED_USERNAME", ""))
             password.setText(prefs.getString("SAVED_PASSWORD", ""))
         }
@@ -150,7 +150,7 @@ class MainActivity : AppCompatActivity() {
             }
 
 
-        }*/
+        }
     }
 
     override fun onStart() {
