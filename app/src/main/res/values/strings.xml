@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Horizons</string>
+
+    --strings for the login screen
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="remember">Remember</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+
+    --strings for the choices screen
+
+    <string name="title_activity_choices">Actions</string>
+
+</resources>
