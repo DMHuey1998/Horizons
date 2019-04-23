@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -62,8 +63,8 @@ class MainActivity : AppCompatActivity() {
         login = findViewById(R.id.login)
 
         if (prefs.getBoolean("REMEMBER", false)) {
-        username.addTextChangedListener(textWatcher)
-        password.addTextChangedListener(textWatcher)
+            username.addTextChangedListener(textWatcher)
+            password.addTextChangedListener(textWatcher)
         } else {
             username.setText(prefs.getString("SAVED_USERNAME", ""))
             password.setText(prefs.getString("SAVED_PASSWORD", ""))
@@ -71,31 +72,9 @@ class MainActivity : AppCompatActivity() {
 
         signup.setOnClickListener {
 
-            //Crashlytics.getInstance().crash()
+            val signUpIntent = Intent(this, SignUpActivity::class.java)
+            startActivity(signUpIntent)
 
-            val inputtedUsername: String = username.text.toString().trim()
-            val inputtedPassword: String = password.text.toString().trim()
-
-            firebaseAuth.createUserWithEmailAndPassword(
-                inputtedUsername,
-                inputtedPassword
-            ).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val currentUser: FirebaseUser? = firebaseAuth.currentUser
-                    Toast.makeText(
-                        this,
-                        "Registered as: ${currentUser!!.email}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else {
-                    val exception = task.exception
-                    Toast.makeText(
-                        this,
-                        "Failed to register: $exception",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
         }
 
         login.setOnClickListener {

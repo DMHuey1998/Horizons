@@ -1,13 +1,17 @@
 <resources>
     <string name="app_name">Horizons</string>
 
-    --strings for the login screen
+    --strings for the login/signup screen
 
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="remember">Remember</string>
     <string name="login">Login</string>
     <string name="signup">Sign Up</string>
+    <string name="email">Email</string>
+    <string name="confirm">Confirm Password</string>
+    <string name="submit">Submit</string>
+    <string name="back">Return to Login</string>
 
     --strings for the choices screen
 
