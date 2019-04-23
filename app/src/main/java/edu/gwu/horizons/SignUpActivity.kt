@@ -1,12 +1,15 @@
 package edu.gwu.horizons
 
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class SignUpActivity: AppCompatActivity() {
 
@@ -28,7 +31,8 @@ class SignUpActivity: AppCompatActivity() {
 
             val inputtedUsername: String = username.text.toString().trim()
             val inputtedPassword: String = password.text.toString().trim()
-            val enableButton: Boolean = inputtedUsername.isNotEmpty() && inputtedPassword.isNotEmpty()
+            val inputtedConfirm: String = confirm.text.toString().trim()
+            val enableButton: Boolean = inputtedUsername.isNotEmpty() && inputtedPassword.isNotEmpty() && inputtedConfirm.isNotEmpty()
 
             submit.isEnabled = enableButton
         }
@@ -39,32 +43,55 @@ class SignUpActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
+        firebaseAuth = FirebaseAuth.getInstance()
 
+        username = findViewById(R.id.username)
+        password = findViewById(R.id.password)
+        confirm = findViewById(R.id.confirm)
+        submit = findViewById(R.id.submit)
+        back = findViewById(R.id.back)
 
-        /*//Crashlytics.getInstance().crash()
+        username.addTextChangedListener(textWatcher)
+        password.addTextChangedListener(textWatcher)
+        confirm.addTextChangedListener(textWatcher)
+
+        //Crashlytics.getInstance().crash()
+
+        submit.setOnClickListener {
 
             val inputtedUsername: String = username.text.toString().trim()
             val inputtedPassword: String = password.text.toString().trim()
+            val inputtedConfirm: String = confirm.text.toString().trim()
 
-            firebaseAuth.createUserWithEmailAndPassword(
-                inputtedUsername,
-                inputtedPassword
-            ).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val currentUser: FirebaseUser? = firebaseAuth.currentUser
-                    Toast.makeText(
-                        this,
-                        "Registered as: ${currentUser!!.email}",
+            if (inputtedPassword == inputtedConfirm) {
+                firebaseAuth.createUserWithEmailAndPassword(
+                    inputtedUsername,
+                    inputtedPassword
+                ).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val currentUser: FirebaseUser? = firebaseAuth.currentUser
+                        Toast.makeText(
+                            this,
+                            "Registered as: ${currentUser!!.email}",
                             Toast.LENGTH_LONG
                         ).show()
-                } else {
-                    val exception = task.exception
-                    Toast.makeText(
-                        this,
-                        "Failed to register: $exception",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    } else {
+                        val exception = task.exception
+                        Toast.makeText(
+                            this,
+                            "Failed to register: $exception",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
-            }*/
+            } else if (inputtedPassword != inputtedConfirm) {   //if passwords do not match, show this dialog
+                AlertDialog.Builder(this)
+                    .setTitle("Passwords do not match")
+                    .setMessage("Please make the password and confirmation match each other.")
+                    .setPositiveButton("OKAY") {dialog, _ ->
+                        dialog.dismiss()
+                    }
+            }
+        }
     }
 }
