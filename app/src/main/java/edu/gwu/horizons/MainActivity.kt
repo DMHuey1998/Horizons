@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -12,8 +11,6 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
-//import com.crashlytics.android.Crashlytics
-//import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseUser
@@ -27,7 +24,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var remember: CheckBox
 
     private lateinit var firebaseAuth: FirebaseAuth
-    //private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private val textWatcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {}
@@ -52,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         val prefs = getSharedPreferences("horizons", Context.MODE_PRIVATE) //sharedPreferences so far
 
         firebaseAuth = FirebaseAuth.getInstance()
-        //firebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
         signup = findViewById(R.id.signup)
 
@@ -86,7 +81,6 @@ class MainActivity : AppCompatActivity() {
                 inputtedPassword
             ).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    //firebaseAnalytics.logEvent("login_success", null)
 
                     val currentUser: FirebaseUser? = firebaseAuth.currentUser
                     Toast.makeText(
@@ -95,18 +89,18 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_LONG
                     ).show()
 
-                    // User logged in, advance to the next screen
-                    //val intent: Intent = Intent(this, ChoicesActivity::class.java)
-                    //startActivity(intent)
-
-                    remember.setOnCheckedChangeListener { _, isChecked ->   //sharedpreferences for the remember checkbox
+                    //this thing is what is giving me grief right now, sad face. Worry about this stuff on the final build.
+                    /*remember.setOnCheckedChangeListener { _, isChecked ->   //sharedpreferences for the remember checkbox
                         if (isChecked) {
                             prefs.edit().putString("SAVED_USERNAME", inputtedUsername).apply()
                             prefs.edit().putString("SAVED_PASSWORD", inputtedPassword).apply()
                             prefs.edit().putBoolean("REMEMBER", true).apply()
                         }
 
-                    }
+                    }*/
+                    val selectIntent = Intent(this, SelectActivity::class.java)
+                    startActivity(selectIntent)
+
                 } else {
                     val exception = task.exception
                     Toast.makeText(
@@ -124,7 +118,6 @@ class MainActivity : AppCompatActivity() {
                     val bundle = Bundle()
                     bundle.putString("error_reason", reason)
 
-                    //firebaseAnalytics.logEvent("login_failed", bundle)
                 }
             }
 

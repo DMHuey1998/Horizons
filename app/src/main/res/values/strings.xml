@@ -13,8 +13,10 @@
     <string name="submit">Submit</string>
     <string name="back">Return to Login</string>
 
-    --strings for the choices screen
-
-    <string name="title_activity_choices">Actions</string>
+    --strings for the main menu screen, selectactivity
+    <string name="myalbums">My Albums</string>
+    <string name="recommend">Recommend an album</string>
+    <string name="title">Welcome!</string>
+    <string name="logout">Logout</string>
 
 </resources>

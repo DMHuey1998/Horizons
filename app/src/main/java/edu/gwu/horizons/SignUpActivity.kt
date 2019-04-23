@@ -2,7 +2,6 @@ package edu.gwu.horizons
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
@@ -21,7 +20,6 @@ class SignUpActivity: AppCompatActivity() {
     private lateinit var back: Button
 
     private lateinit var firebaseAuth: FirebaseAuth
-    //private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private val textWatcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {}
