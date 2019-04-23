@@ -1,5 +1,6 @@
 package edu.gwu.horizons
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -84,14 +85,18 @@ class SignUpActivity: AppCompatActivity() {
                         ).show()
                     }
                 }
-            } else if (inputtedPassword != inputtedConfirm) {   //if passwords do not match, show this dialog
-                AlertDialog.Builder(this)
-                    .setTitle("Passwords do not match")
-                    .setMessage("Please make the password and confirmation match each other.")
-                    .setPositiveButton("OKAY") {dialog, _ ->
-                        dialog.dismiss()
-                    }
+            } else if (inputtedPassword != inputtedConfirm) {   //this will display if passwords do not match
+                Toast.makeText(
+                    this,
+                    "Passwords must match!",
+                    Toast.LENGTH_LONG
+                ).show()
             }
+        }
+
+        back.setOnClickListener {
+            val loginIntent = Intent(this, MainActivity::class.java)
+            startActivity(loginIntent)
         }
     }
 }
