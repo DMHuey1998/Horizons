@@ -21,5 +21,14 @@
     <string name="searchHint">Search Album or Artist</string>
     <string name="search">Search</string>
 
+    --row_album strings
+    <string name="artist">Circa Survive</string>
+    <string name="release_title">Juturna</string>
+    <string name="label">Equal Vision Records</string>
+    <string name="genre">Rock</string>
+    <string name="style">Emo</string>
+    <string name="country">US</string>
+    <string name="year">2005</string>
+
 
 </resources>
