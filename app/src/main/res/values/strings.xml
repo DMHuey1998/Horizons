@@ -13,10 +13,13 @@
     <string name="submit">Submit</string>
     <string name="back">Return to Login</string>
 
-    --strings for the main menu screen, selectactivity
+    --strings for the main menu screen, SelectActivity
     <string name="myalbums">My Albums</string>
     <string name="recommend">Recommend an album</string>
     <string name="title">Welcome!</string>
     <string name="logout">Logout</string>
+    <string name="searchHint">Search Album or Artist</string>
+    <string name="search">Search</string>
+
 
 </resources>
