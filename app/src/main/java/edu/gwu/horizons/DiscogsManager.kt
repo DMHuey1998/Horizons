@@ -50,6 +50,7 @@ class DiscogsManager {
             * oauth_signature_method="PLAINTEXT",
             * oauth_timestamp="current_timestamp",
             * oauth_verifier="users_verifier"
+            I have no idea what I'm doing so here goes
         */
 
         val request: Request = Request.Builder()
