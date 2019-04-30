@@ -2,6 +2,7 @@ package edu.gwu.horizons
 
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
+import org.json.JSONObject
 import java.io.IOException
 import java.sql.Timestamp
 import java.util.concurrent.TimeUnit
@@ -10,7 +11,7 @@ class DiscogsManager {
 
     private val okHttpClient: OkHttpClient
 
-    private var oAuthToken: String? = "EqmUZjaWTXzZRPFmccEDEUvEVMsBxZcXACkfAazY"    //I'm just gonna hardcode it in
+    private var oAuthToken: String = "EqmUZjaWTXzZRPFmccEDEUvEVMsBxZcXACkfAazY"    //I'm just gonna hardcode it in
 
     init {
         val builder = OkHttpClient.Builder()
@@ -64,12 +65,38 @@ class DiscogsManager {
             )
             .build()
 
-        okHttpClient.newCall(request).enqueue( object: Callback {
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            /**
+             * [onFailure] is called if OkHttp is has an issue making the request (for example,
+             * no network connectivity).
+             */
             override fun onFailure(call: Call, e: IOException) {
+                // Invoke the callback passed to our [retrieveOAuthToken] function.
                 errorCallback(e)
-                
             }
 
+            /**
+             * [onResponse] is called if OkHttp is able to get any response (successful or not)
+             * back from the server
+             */
+            override fun onResponse(call: Call, response: Response) {
+                // The token would be part of the JSON response body
+                val responseBody = response.body()?.string()
+
+                // Check if the response was successful (200 code) and the body is non-null
+                if (response.isSuccessful && responseBody != null) {
+                    // Parse the token out of the JSON
+                    val jsonObject = JSONObject(responseBody)
+                    val token = jsonObject.getString("access_token")
+                    oAuthToken = token
+
+                    // Invoke the callback passed to our [retrieveOAuthToken] function.
+                    successCallback(token)
+                } else {
+                    // Invoke the callback passed to our [retrieveOAuthToken] function.
+                    errorCallback(Exception("OAuth call failed"))
+                }
+            }
         })
     }
 
