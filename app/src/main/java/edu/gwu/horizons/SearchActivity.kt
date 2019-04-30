@@ -39,7 +39,7 @@ class SearchActivity : AppCompatActivity() {
             val inputtedSearch = searchContent.text.toString()  //parameters for album/artist search
             val returnIntent = Intent(this, ReturnActivity::class.java)
             startActivity(returnIntent)
-            //do the stuff to return a recyclerView for ReturnActivity
+
         }
 
     }
