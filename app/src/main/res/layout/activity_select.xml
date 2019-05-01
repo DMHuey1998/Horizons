@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+
+    <Button
+            android:text="@string/myalbums"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/myalbums" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="96dp"
+            app:layout_constraintTop_toBottomOf="@+id/title"/>
+    <Button
+            android:text="@string/recommend"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/recommend" android:layout_marginTop="40dp"
+            app:layout_constraintTop_toBottomOf="@+id/myalbums" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.0"
+    />
+    <TextView
+            android:text="@string/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/title" android:textSize="36sp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.497"
+            android:layout_marginTop="60dp" app:layout_constraintTop_toBottomOf="@+id/logout"/>
+    <Button
+            android:text="@string/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/logout" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintHorizontal_bias="0.973"/>
+    <Button
+            android:text="@string/search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchContent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginBottom="188dp" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/recommend" app:layout_constraintVertical_bias="0.329"/>
+</android.support.constraint.ConstraintLayout>
