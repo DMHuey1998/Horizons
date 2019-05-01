@@ -4,14 +4,16 @@ import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import org.json.JSONObject
 import java.io.IOException
-import java.sql.Timestamp
 import java.util.concurrent.TimeUnit
 
 class DiscogsManager {
 
     private val okHttpClient: OkHttpClient
 
-    private var oAuthToken: String = "EqmUZjaWTXzZRPFmccEDEUvEVMsBxZcXACkfAazY"    //I'm just gonna hardcode it in because thug life
+    //Don't need to deal with OAuth with this flow, it's secure and easy
+
+    private val consumerKey: String = "OMtKOzruKRvCvNlFEzqU"
+    private val consumerSecretKey: String = "vsnWOJiSxeQxOGxEnWvCDejGRncLKVct"
 
     init {
         val builder = OkHttpClient.Builder()
@@ -35,7 +37,7 @@ class DiscogsManager {
 
         //Building the request, based off album or artist name
         val request = Request.Builder()
-            .url("https://api.discogs.com/database/search?q=$query&key=foo123&secret=bar456")
+            .url("https://api.discogs.com/database/search?q=nirvana&key=$consumerKey&secret=$consumerSecretKey")
             .build()
 
         okHttpClient.newCall(request).enqueue(object: Callback {
