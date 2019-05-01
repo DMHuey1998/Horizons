@@ -25,36 +25,23 @@ class ReturnActivity : AppCompatActivity() {
 
         val inputtedSearch = "Nirvana"
 
-        discogsManager.retrieveOAuthToken(
-            successCallback = { token ->
-
-                discogsManager.searchAlbums(
-                    oAuthToken = token,
-                    query = inputtedSearch,   //takes the searchContent variable from searchActivity
-                    successCallback = { albums ->
-                        runOnUiThread {
-                            albumsList.clear()
-                            albumsList.addAll(albums)
-
-                            recyclerView.adapter =
-                                    AlbumsAdapter(albums)
-                        }
-                    },
-                    errorCallback = {
-                        runOnUiThread {
-                            Toast.makeText(this@ReturnActivity, "Error retrieving Albums!", Toast.LENGTH_LONG).show()
-                        }
-                    }
-                )
-           },
-            errorCallback = { exception ->
+        discogsManager.searchAlbums(
+            query = inputtedSearch,   //takes the searchContent variable from searchActivity
+            successCallback = { albums ->
                 runOnUiThread {
-                    Toast.makeText(this@ReturnActivity, "Error performing OAuth", Toast.LENGTH_LONG)
-                        .show()
+                    albumsList.clear()
+                    albumsList.addAll(albums)
+
+                    recyclerView.adapter =
+                        AlbumsAdapter(albums)
+                }
+            },
+            errorCallback = {
+                runOnUiThread {
+                    Toast.makeText(this@ReturnActivity, "Error retrieving Albums!", Toast.LENGTH_LONG).show()
                 }
             }
         )
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
