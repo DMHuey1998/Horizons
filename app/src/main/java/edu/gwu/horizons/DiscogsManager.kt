@@ -100,7 +100,7 @@ class DiscogsManager {
             }
         })
     }
-    fun retrieveAlbums(
+    fun searchAlbums( //search albums for the search function, do another one called recommend for recommendations
         oAuthToken: String,
         query: String,  //this is the query parameter
         successCallback: (List<Album>) -> Unit,
