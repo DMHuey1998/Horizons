@@ -5,10 +5,17 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import edu.gwu.gwu_explorer.AlbumsAdapter
+import android.widget.Toast
+import edu.gwu.horizons.AlbumsAdapter
+import edu.gwu.horizons.DiscogsManager
 
 //returns albums based on search parameters, with that parameter being either album or artist
+//in it, you want to find put a button to add that album that will add it to firebase. A floating action button, if you will.
 class ReturnActivity : AppCompatActivity() {
+
+    private val searchActivity: SearchActivity = SearchActivity()   //we'll use this bad boy to get the query parameter
+    private val discogsManager: DiscogsManager = DiscogsManager()   //this is the manager for the API call and what not
+    private val albumsList: MutableList<Album> = mutableListOf()    //list of albums that will be returned
 
     private lateinit var recyclerView: RecyclerView
 
@@ -16,29 +23,48 @@ class ReturnActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_return)
 
-        recyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        val inputtedSearch = searchActivity.searchContent.toString()
 
-        val albums = generateFakeAlbums()
+        discogsManager.retrieveOAuthToken(
+            successCallback = { token ->
 
-        if (albums.isNotEmpty()) {
-            recyclerView.adapter = AlbumsAdapter(albums)
-        } else if (albums.isEmpty()) {   //handles if nonsense or nothing was put into the search bar
-            AlertDialog.Builder(this)
+                discogsManager.searchAlbums(
+                    oAuthToken = token,
+                    query = inputtedSearch,   //takes the searchContent variable from searchActivity
+                    successCallback = { albums ->
+                        runOnUiThread {
+                            albumsList.clear()
+                            albumsList.addAll(albums)
 
-                .setTitle("No Albums Match Your Search")
-                .setPositiveButton("OKAY") { dialog, _ ->
-                    dialog.cancel()
+                            recyclerView.adapter =
+                                    AlbumsAdapter(albums)
+                        }
+                    },
+                    errorCallback = {
+                        runOnUiThread {
+                            Toast.makeText(this@ReturnActivity, "Error retrieving Albums!", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                )
+            },
+            errorCallback = { exception ->
+                runOnUiThread {
+                    Toast.makeText(this@ReturnActivity, "Error performing OAuth", Toast.LENGTH_LONG)
+                        .show()
                 }
-                .show()
-        }
-        title = getString(R.string.myalbums)
+            }
+        )
 
         //make sure to handle no results at a later time over here, whether that be by a nonsensical or a blank search
 
     }
 
-    private fun generateFakeAlbums(): List<Album> { //fake data for the recyclerView
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable("ALBUMS", ArrayList(albumsList))
+    }
+
+    private fun generateFakeAlbums(): List<Album> { //fake data for the recyclerView, we aren't going to use this anymore though but I'll leave it in here for old times' sake
         return listOf(
             Album(
                 artist = "Circa Survive",   //this album is great for concentrating on projects such as this one

@@ -1,4 +1,4 @@
-package edu.gwu.gwu_explorer
+package edu.gwu.horizons
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

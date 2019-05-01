@@ -40,7 +40,6 @@ class DiscogsManager {
                 "OMtKOzruKRvCvNlFEzqU"
         val consumerSecret =
                 "vsnWOJiSxeQxOGxEnWvCDejGRncLKVct"
-        val currentTime = Timestamp(System.currentTimeMillis())
 
         //this is the post request with the following parameters:
         /*OAuth oauth_consumer_key="your_consumer_key",
