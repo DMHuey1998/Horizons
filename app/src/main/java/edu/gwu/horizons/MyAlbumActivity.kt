@@ -5,7 +5,6 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import edu.gwu.gwu_explorer.AlbumsAdapter
 
 class MyAlbumActivity: AppCompatActivity() {    //the activity that lists the albums you have saved under your account
 

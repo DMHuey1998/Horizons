@@ -13,7 +13,7 @@ import edu.gwu.horizons.DiscogsManager
 //in it, you want to find put a button to add that album that will add it to firebase. A floating action button, if you will.
 class ReturnActivity : AppCompatActivity() {
 
-    private val searchActivity: SearchActivity = SearchActivity()   //we'll use this bad boy to get the query parameter
+    //private val searchActivity: SearchActivity = SearchActivity()   //we'll use this bad boy to get the query parameter
     private val discogsManager: DiscogsManager = DiscogsManager()   //this is the manager for the API call and what not
     private val albumsList: MutableList<Album> = mutableListOf()    //list of albums that will be returned
 
@@ -23,7 +23,7 @@ class ReturnActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_return)
 
-        val inputtedSearch = searchActivity.searchContent.toString()
+        val inputtedSearch = "Nirvana"
 
         discogsManager.retrieveOAuthToken(
             successCallback = { token ->
@@ -46,7 +46,7 @@ class ReturnActivity : AppCompatActivity() {
                         }
                     }
                 )
-            },
+           },
             errorCallback = { exception ->
                 runOnUiThread {
                     Toast.makeText(this@ReturnActivity, "Error performing OAuth", Toast.LENGTH_LONG)
@@ -54,8 +54,6 @@ class ReturnActivity : AppCompatActivity() {
                 }
             }
         )
-
-        //make sure to handle no results at a later time over here, whether that be by a nonsensical or a blank search
 
     }
 
@@ -95,7 +93,7 @@ class ReturnActivity : AppCompatActivity() {
             ),
             Album(
                 artist = "Saosin",  //this is technically an EP and not an album but whatevs
-                release_title = "Translating the name",
+                release_title = "Translating the Name",
                 label = "Death Do Us Part",
                 genre = "Rock",
                 style = "Emo",
