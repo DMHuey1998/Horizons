@@ -1,12 +1,10 @@
-package edu.gwu.gwu_explorer
+package edu.gwu.horizons
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import edu.gwu.horizons.Album
-import edu.gwu.horizons.R
 
 class AlbumsAdapter constructor(private val albums: List<Album>) : RecyclerView.Adapter<AlbumsAdapter.ViewHolder>() {
 

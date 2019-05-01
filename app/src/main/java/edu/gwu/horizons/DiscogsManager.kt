@@ -40,7 +40,6 @@ class DiscogsManager {
                 "OMtKOzruKRvCvNlFEzqU"
         val consumerSecret =
                 "vsnWOJiSxeQxOGxEnWvCDejGRncLKVct"
-        val currentTime = Timestamp(System.currentTimeMillis())
 
         //this is the post request with the following parameters:
         /*OAuth oauth_consumer_key="your_consumer_key",
@@ -100,16 +99,16 @@ class DiscogsManager {
             }
         })
     }
-    fun retrieveAlbums(
+    fun searchAlbums( //search albums for the search function, do another one called recommend for recommendations
         oAuthToken: String,
         query: String,  //this is the query parameter
         successCallback: (List<Album>) -> Unit,
         errorCallback: (Exception) -> Unit
     ) {
 
-        //Building the request, based off album and artist name
+        //Building the request, based off album or artist name
         val request = Request.Builder()
-            .url("https://api.discogs.com/database/search?q=$query&{release_title,artist}")
+            .url("https://api.discogs.com/database/search?q=$query&key=foo123&secret=bar456")
             .header("Authorization", oAuthToken)
             .build()
 
@@ -127,7 +126,7 @@ class DiscogsManager {
                     for (i in 0 until statuses.length()) {
                         val curr = statuses.getJSONObject(i)
                         val artist = curr.getString("artist")
-                        val release_title = curr.getString("release_title")
+                        val releaseTitle = curr.getString("release_title")
                         val label = curr.getString("label")
                         val genre = curr.getString("genre")
                         val style = curr.getString("style")
@@ -136,7 +135,7 @@ class DiscogsManager {
                         albums.add(
                             Album(
                                 artist = artist,
-                                release_title = release_title,
+                                release_title = releaseTitle,
                                 label = label,
                                 genre = genre,
                                 style = style,

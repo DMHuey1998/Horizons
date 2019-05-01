@@ -10,7 +10,7 @@ import android.widget.EditText
 
 class SearchActivity : AppCompatActivity() {
 
-    private lateinit var searchContent: EditText
+    lateinit var searchContent: EditText
     private lateinit var search: Button
 
     private val textWatcher: TextWatcher = object : TextWatcher {
@@ -36,7 +36,7 @@ class SearchActivity : AppCompatActivity() {
 
 
         search.setOnClickListener {
-            val inputtedSearch = searchContent.text.toString()  //parameters for album/artist search
+
             val returnIntent = Intent(this, ReturnActivity::class.java)
             startActivity(returnIntent)
 
