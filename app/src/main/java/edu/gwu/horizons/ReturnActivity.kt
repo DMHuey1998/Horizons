@@ -4,6 +4,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 
 //returns albums based on search parameters, with that parameter being either album or artist
@@ -13,8 +17,25 @@ class ReturnActivity : AppCompatActivity() {
     private val discogsManager: DiscogsManager = DiscogsManager()   //this is the manager for the API call and what not
     private val albumsList: MutableList<Album> = mutableListOf()    //list of albums that will be returned
 
+    private lateinit var searchArtist: EditText
+    private lateinit var search: Button
+
     private lateinit var recyclerView: RecyclerView
 
+    private val textWatcher: TextWatcher = object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {}
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            val inputtedSearch: String = searchArtist.text.toString().trim()
+            val enableButton: Boolean = inputtedSearch.isNotEmpty()
+
+            search.isEnabled = enableButton
+        }
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,25 +44,35 @@ class ReturnActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val inputtedSearch = "Circa Survive"
+        searchArtist = findViewById(R.id.searchArtist)
+        search = findViewById(R.id.search)
 
-        discogsManager.searchAlbums(
-            query = inputtedSearch,   //takes the searchContent variable from searchActivity
-            successCallback = { albums ->
+        searchArtist.addTextChangedListener(textWatcher)
 
-                albumsList.clear()
-                albumsList.addAll(albums)
 
-                runOnUiThread {
-                    recyclerView.adapter =
-                        AlbumsAdapter(albums)
+
+        search.setOnClickListener {
+
+            val inputtedSearch: String = searchArtist.text.toString().trim()
+
+            discogsManager.searchAlbums(
+                query = inputtedSearch,   //takes the searchContent variable from searchActivity
+                successCallback = { albums ->
+
+                    albumsList.clear()
+                    albumsList.addAll(albums)
+
+                    runOnUiThread {
+                        recyclerView.adapter =
+                            AlbumsAdapter(albums)
+                    }
+
+                },
+                errorCallback = {
+                    Toast.makeText(this@ReturnActivity, "Error retrieving Albums!", Toast.LENGTH_LONG).show()
                 }
-
-            },
-            errorCallback = {
-                Toast.makeText(this@ReturnActivity, "Error retrieving Albums!", Toast.LENGTH_LONG).show()
-            }
-        )
+            )
+        }
         title = getString(R.string.myalbums)
 
     }
