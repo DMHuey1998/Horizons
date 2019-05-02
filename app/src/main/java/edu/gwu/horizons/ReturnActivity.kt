@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -49,8 +50,6 @@ class ReturnActivity : AppCompatActivity() {
 
         searchArtist.addTextChangedListener(textWatcher)
 
-
-
         search.setOnClickListener {
 
             val inputtedSearch: String = searchArtist.text.toString().trim()
@@ -73,7 +72,15 @@ class ReturnActivity : AppCompatActivity() {
                 }
             )
         }
-        title = getString(R.string.search)
+
+        if (savedInstanceState != null) {
+            // The screen has rotated, so we should retrieve the previous Tweets
+            val previousAlbums: List<Album> = savedInstanceState.getSerializable("TWEETS") as List<Album>
+            albumsList.addAll(previousAlbums)
+
+            recyclerView.visibility = View.INVISIBLE
+            recyclerView.adapter = AlbumsAdapter(albumsList)
+        }
 
     }
 
