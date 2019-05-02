@@ -37,7 +37,7 @@ class DiscogsManager {
 
         //Building the request, based off album or artist name
         val request = Request.Builder()
-            .url("https://api.discogs.com/database/search?q=$query&key=$consumerKey&secret=$consumerSecretKey")
+            .url("https://api.discogs.com/database/search?q=Nirvana&key=OMtKOzruKRvCvNlFEzqU&secret=vsnWOJiSxeQxOGxEnWvCDejGRncLKVct&type=release")
             .build()
 
         okHttpClient.newCall(request).enqueue(object: Callback {
@@ -50,29 +50,30 @@ class DiscogsManager {
                 val responseString = response.body()?.string()
 
                 if (response.isSuccessful && responseString != null) {
-                    val statuses = JSONObject(responseString).getJSONArray("statuses")
-                    for (i in 0 until statuses.length()) {
-                        val curr = statuses.getJSONObject(i)
+                    val results = JSONObject(responseString).getJSONArray("results")
+                    for (i in 0 until results.length()) {
+                        val curr = results.getJSONObject(i)
                         val artist = curr.getString("artist")
-                        val releaseTitle = curr.getString("release_title")
-                        val label = curr.getString("label")
+                        val title = curr.getString("title")
+                        /*val label = curr.getString("label")
                         val genre = curr.getString("genre")
                         val style = curr.getString("style")
                         val country = curr.getString("country")
-                        val year = curr.getString("year")
+                        val year = curr.getString("year")*/
                         albums.add(
                             Album(
                                 artist = artist,
-                                release_title = releaseTitle,
-                                label = label,
-                                genre = genre,
-                                style = style,
-                                country = country,
-                                year = year
+                                release_title = title,
+                                label = "",
+                                genre = "",
+                                style = "",
+                                country = "",
+                                year = ""
                             )
                         )
-                        successCallback(albums)
+
                     }
+                    successCallback(albums)
 
                 } else {
                     errorCallback(Exception("Nothing matches your request or search call failed."))
