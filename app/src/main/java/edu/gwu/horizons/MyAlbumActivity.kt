@@ -17,8 +17,6 @@ class MyAlbumActivity: AppCompatActivity() {    //the activity that lists the al
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        title = getString(R.string.myalbums)
-
         //make sure to handle no results at a later time over here, whether that be by a nonsensical or a blank search
 
     }

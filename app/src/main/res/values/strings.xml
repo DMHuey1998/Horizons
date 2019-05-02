@@ -19,6 +19,7 @@
     <string name="logout">Logout</string>
     <string name="searchHint">Search Album or Artist</string>
     <string name="search">Search</string>
+    <string name="test">Test</string>
 
     --row_album strings
     <string name="title">Circa Survive - Juturna</string>

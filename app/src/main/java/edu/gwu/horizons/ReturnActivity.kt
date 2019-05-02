@@ -23,7 +23,6 @@ class ReturnActivity : AppCompatActivity() {
 
     private lateinit var searchArtist: EditText
     private lateinit var search: Button
-    private lateinit var add: FloatingActionButton
     private lateinit var firebaseDatabase: FirebaseDatabase
 
     private lateinit var recyclerView: RecyclerView
@@ -52,24 +51,13 @@ class ReturnActivity : AppCompatActivity() {
 
         searchArtist = findViewById(R.id.searchArtist)
         search = findViewById(R.id.search)
-        add = findViewById(R.id.add)
 
         firebaseDatabase = FirebaseDatabase.getInstance()
 
         searchArtist.addTextChangedListener(textWatcher)
 
-        val email = FirebaseAuth.getInstance().currentUser!!.email!!
+        //val reference = firebaseDatabase.getReference("albums/$email")
 
-        val reference = firebaseDatabase.getReference("albums/$email")
-
-        add.setOnClickListener {
-            val album = Album(
-                title = "Circa Survive - Juturna",
-                style = "Emo"
-            )
-
-            reference.push().setValue(album)
-        }
 
         search.setOnClickListener {
 
@@ -93,6 +81,8 @@ class ReturnActivity : AppCompatActivity() {
                 }
             )
         }
+
+        title = getString(R.string.search)
 
     }
 
