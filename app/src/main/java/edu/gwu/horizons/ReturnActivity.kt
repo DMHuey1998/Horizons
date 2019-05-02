@@ -94,15 +94,6 @@ class ReturnActivity : AppCompatActivity() {
             )
         }
 
-        if (savedInstanceState != null) {
-            // The screen has rotated, so we should retrieve the previous Tweets
-            val previousAlbums: List<Album> = savedInstanceState.getSerializable("TWEETS") as List<Album>
-            albumsList.addAll(previousAlbums)
-
-            recyclerView.visibility = View.INVISIBLE
-            recyclerView.adapter = AlbumsAdapter(albumsList)
-        }
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
