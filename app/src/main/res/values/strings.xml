@@ -24,5 +24,6 @@
     --row_album strings
     <string name="title">Circa Survive - Juturna</string>
     <string name="style">Emo</string>
+    <string name="add">Add</string>
 
 </resources>

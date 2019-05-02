@@ -14,7 +14,7 @@ import android.widget.Toast
 //returns albums based on search parameters, with that parameter being either album or artist
 //in it, you want to find put a button to add that album that will add it to firebase. A floating action button, if you will.
 class ReturnActivity : AppCompatActivity() {
-
+    
     private val discogsManager: DiscogsManager = DiscogsManager()   //this is the manager for the API call and what not
     private val albumsList: MutableList<Album> = mutableListOf()    //list of albums that will be returned
 
