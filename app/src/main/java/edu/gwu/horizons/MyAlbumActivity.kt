@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import com.google.firebase.database.FirebaseDatabase
 
 class MyAlbumActivity: AppCompatActivity() {    //the activity that lists the albums you have saved under your account
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var firebaseDatabase: FirebaseDatabase
 
     //this will take the albums you have saved and use the albumadapter in the recyclerview that we also used for search
     override fun onCreate(savedInstanceState: Bundle?) {
