@@ -20,30 +20,17 @@ class AlbumsAdapter constructor(private val albums: List<Album>) : RecyclerView.
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentAlbum = albums[position]
 
-        holder.artistTextView.text = currentAlbum.artist
-        holder.releaseTextView.text = currentAlbum.release_title
-        holder.labelTextView.text = currentAlbum.label
-        holder.genreTextView.text = currentAlbum.genre
+        holder.titleTextView.text = currentAlbum.title
         holder.styleTextView.text = currentAlbum.style
-        holder.countryTextView.text = currentAlbum.country
-        holder.yearTextView.text = currentAlbum.year
+
     }
 
     class ViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
 
-        val artistTextView: TextView = view.findViewById(R.id.artist)
 
-        val releaseTextView: TextView = view.findViewById(R.id.release_title)
-
-        val labelTextView: TextView = view.findViewById(R.id.label)
-
-        val genreTextView: TextView = view.findViewById(R.id.genre)
+        val titleTextView: TextView = view.findViewById(R.id.title)
 
         val styleTextView: TextView = view.findViewById(R.id.style)
-
-        val countryTextView: TextView = view.findViewById(R.id.country)
-
-        val yearTextView: TextView = view.findViewById(R.id.year)
 
     }
 }
