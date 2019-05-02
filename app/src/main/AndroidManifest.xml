@@ -22,7 +22,6 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".SelectActivity" />
         <activity android:name=".MyAlbumActivity"/>
-        <activity android:name=".SearchActivity"/>
         <activity android:name=".ReturnActivity"/>
     </application>
 

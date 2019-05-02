@@ -27,8 +27,8 @@ class SelectActivity : AppCompatActivity() {
         }
 
         search.setOnClickListener {
-            val searchIntent = Intent(this, SearchActivity::class.java)
-            startActivity(searchIntent)
+            val returnIntent = Intent(this, ReturnActivity::class.java)
+            startActivity(returnIntent)
         }
 
         logout.setOnClickListener {//this is for when you want to log out of the app
