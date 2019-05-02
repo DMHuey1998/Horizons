@@ -4,10 +4,16 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class MyAlbumActivity: AppCompatActivity() {    //the activity that lists the albums you have saved under your account
 
+    private val albumsList: MutableList<Album> = mutableListOf()
     private lateinit var recyclerView: RecyclerView
     private lateinit var firebaseDatabase: FirebaseDatabase
 
@@ -16,10 +22,39 @@ class MyAlbumActivity: AppCompatActivity() {    //the activity that lists the al
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_album)
 
+        firebaseDatabase = FirebaseDatabase.getInstance()
+
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        //make sure to handle no results at a later time over here, whether that be by a nonsensical or a blank search
+        val reference = firebaseDatabase.getReference("albums")
+
+        reference.addValueEventListener(object: ValueEventListener {
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(
+                    this@MyAlbumActivity,
+                    "Failed to retrieve albums! Error: ${databaseError.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                albumsList.clear()
+
+                dataSnapshot.children.forEach { data ->
+                    val email: String = FirebaseAuth.getInstance().currentUser!!.email!!
+                    val album: Album? = data.getValue(Album::class.java)
+
+                    if (album != null) {
+                        albumsList.add(album)
+                    }
+                }
+
+                recyclerView.adapter = AlbumsAdapter(albumsList)
+            }
+        }
+
+        )
 
     }
 
