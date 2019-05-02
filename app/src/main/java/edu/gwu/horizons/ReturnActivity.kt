@@ -49,44 +49,4 @@ class ReturnActivity : AppCompatActivity() {
         outState.putSerializable("ALBUMS", ArrayList(albumsList))
     }
 
-    private fun generateFakeAlbums(): List<Album> { //fake data for the recyclerView, we aren't going to use this anymore though but I'll leave it in here for old times' sake
-        return listOf(
-            Album(
-                artist = "Circa Survive",   //this album is great for concentrating on projects such as this one
-                release_title = "Juturna",
-                label = "Equal Vision Records",
-                genre = "Rock",
-                style = "Emo",
-                country = "US",
-                year = "2005"
-            ),
-            Album(
-                artist = "Dance Gavin Dance",   //this is my favorite album from my favorite band ever
-                release_title = "Mothership",
-                label = "Rise Records",
-                genre = "Rock",
-                style = "Post-Hardcore",
-                country = "US",
-                year = "2016"
-            ),
-            Album(
-                artist = "Architects",
-                release_title = "Holy Hell",
-                label = "Epitaph",
-                genre = "Rock",
-                style = "Metalcore",
-                country = "UK",
-                year = "2018"
-            ),
-            Album(
-                artist = "Saosin",  //this is technically an EP and not an album but whatevs
-                release_title = "Translating the Name",
-                label = "Death Do Us Part",
-                genre = "Rock",
-                style = "Emo",
-                country = "US",
-                year = "2003"
-            )
-        )
-    }
 }
