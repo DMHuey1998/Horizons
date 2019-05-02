@@ -53,7 +53,7 @@ class DiscogsManager {
                     val results = JSONObject(responseString).getJSONArray("results")
                     for (i in 0 until results.length()) {
                         val curr = results.getJSONObject(i)
-                        val artist = curr.getString("artist")
+                        //val artist = curr.getString("artist")
                         val title = curr.getString("title")
                         /*val label = curr.getString("label")
                         val genre = curr.getString("genre")
@@ -62,7 +62,7 @@ class DiscogsManager {
                         val year = curr.getString("year")*/
                         albums.add(
                             Album(
-                                artist = artist,
+                                artist = "",
                                 release_title = title,
                                 label = "",
                                 genre = "",
@@ -71,7 +71,6 @@ class DiscogsManager {
                                 year = ""
                             )
                         )
-
                     }
                     successCallback(albums)
 
