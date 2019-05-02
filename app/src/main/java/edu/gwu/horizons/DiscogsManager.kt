@@ -54,12 +54,12 @@ class DiscogsManager {
                     for (i in 0 until results.length()) {
                         val curr = results.getJSONObject(i)
                         val title = curr.getString("title")
-                        //val style = curr.getString("style")
+                        val style = curr.getString("style")
 
                         albums.add(
                             Album(
                                 title = title,
-                                style = ""
+                                style = style
                             )
                         )
                     }
