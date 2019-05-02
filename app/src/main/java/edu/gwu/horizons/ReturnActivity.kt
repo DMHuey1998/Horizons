@@ -1,6 +1,7 @@
 package edu.gwu.horizons
 
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -10,16 +11,20 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 //returns albums based on search parameters, with that parameter being either album or artist
 //in it, you want to find put a button to add that album that will add it to firebase. A floating action button, if you will.
 class ReturnActivity : AppCompatActivity() {
-    
+
     private val discogsManager: DiscogsManager = DiscogsManager()   //this is the manager for the API call and what not
     private val albumsList: MutableList<Album> = mutableListOf()    //list of albums that will be returned
 
     private lateinit var searchArtist: EditText
     private lateinit var search: Button
+    private lateinit var add: FloatingActionButton
+    private lateinit var firebaseDatabase: FirebaseDatabase
 
     private lateinit var recyclerView: RecyclerView
 
@@ -47,8 +52,24 @@ class ReturnActivity : AppCompatActivity() {
 
         searchArtist = findViewById(R.id.searchArtist)
         search = findViewById(R.id.search)
+        add = findViewById(R.id.add)
+
+        firebaseDatabase = FirebaseDatabase.getInstance()
 
         searchArtist.addTextChangedListener(textWatcher)
+
+        val email = FirebaseAuth.getInstance().currentUser!!.email!!
+
+        val reference = firebaseDatabase.getReference("albums/$email")
+
+        add.setOnClickListener {
+            val album = Album(
+                title = "Circa Survive - Juturna",
+                style = "Emo"
+            )
+
+            reference.push().setValue(album)
+        }
 
         search.setOnClickListener {
 
