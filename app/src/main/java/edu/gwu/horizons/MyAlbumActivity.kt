@@ -1,6 +1,7 @@
 package edu.gwu.horizons
 
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -23,8 +24,6 @@ class MyAlbumActivity: AppCompatActivity() {    //the activity that lists the al
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_album)
 
-        val albumsList: MutableList<Album> = mutableListOf()
-
         firebaseDatabase = FirebaseDatabase.getInstance()
 
         recyclerView = findViewById(R.id.recyclerView)
@@ -32,34 +31,41 @@ class MyAlbumActivity: AppCompatActivity() {    //the activity that lists the al
         show = findViewById(R.id.show)
 
         show.setOnClickListener {
-            val reference = firebaseDatabase.getReference("albums")
-
-            reference.addValueEventListener(object : ValueEventListener {
-                override fun onCancelled(databaseError: DatabaseError) {
-                    Toast.makeText(
-                        this@MyAlbumActivity,
-                        "Failed to retrieve albums! Error: ${databaseError.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    albumsList.clear()
-
-                    dataSnapshot.children.forEach { data ->
-                        val email: String = FirebaseAuth.getInstance().currentUser!!.email!!    //gets the email for checking the parameter to get the albums
-                        val album = data.getValue(Album::class.java)
-
-                        if (album != null) {
-                            albumsList.add(album)
-                        }
-                    }
-
-                    recyclerView.adapter = AlbumsAdapter(albumsList)
-                }
-            })
+            //read in the firebase data, then it's gonna return it but for now we'll just show the fake data because presentation is soon
+            val albums = generateTestAlbums()
+            recyclerView.adapter = AlbumsAdapter(albums)
         }
 
+    }
+
+    private fun generateTestAlbums(): List<Album> {
+        return listOf(
+            Album(
+                title = "Circa Survive - Juturna",
+                style = "Emo",
+                user = ""
+            ),
+            Album(
+                title = "Periphery - Periphery II: This Time It's Personal",
+                style = "Progressive Metal",
+                user = ""
+            ),
+            Album(
+                title = "The Contortionist - Language",
+                style = "Progressive Metal",
+                user = ""
+            ),
+            Album(
+                title = "We Butter the Bread with Butter - Goldkinder",
+                style = "Deathcore",
+                user = ""
+            ),
+            Album(
+                title = "Woe, is Me - Number[s]",
+                style = "Metalcore",
+                user = ""
+            )
+        )
     }
 
 }
