@@ -37,7 +37,7 @@ class DiscogsManager {
 
         //Building the request, based off album or artist name
         val request = Request.Builder()
-            .url("https://api.discogs.com/database/search?q=Nirvana&key=OMtKOzruKRvCvNlFEzqU&secret=vsnWOJiSxeQxOGxEnWvCDejGRncLKVct&type=release")
+            .url("https://api.discogs.com/database/search?q=$query&key=$consumerKey&secret=$consumerSecretKey&type=release")
             .build()
 
         okHttpClient.newCall(request).enqueue(object: Callback {

@@ -24,7 +24,7 @@ class ReturnActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val inputtedSearch = "Juturna"
+        val inputtedSearch = "Circa Survive"
 
         discogsManager.searchAlbums(
             query = inputtedSearch,   //takes the searchContent variable from searchActivity
@@ -33,8 +33,10 @@ class ReturnActivity : AppCompatActivity() {
                 albumsList.clear()
                 albumsList.addAll(albums)
 
-                recyclerView.adapter =
-                    AlbumsAdapter(albums)
+                runOnUiThread {
+                    recyclerView.adapter =
+                        AlbumsAdapter(albums)
+                }
 
             },
             errorCallback = {
