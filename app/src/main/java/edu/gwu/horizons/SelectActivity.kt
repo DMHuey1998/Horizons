@@ -8,7 +8,6 @@ import android.widget.Button
 class SelectActivity : AppCompatActivity() {
 
     private lateinit var myalbums: Button
-    private lateinit var recommend: Button
     private lateinit var logout: Button
     private lateinit var search: Button
 
@@ -17,7 +16,6 @@ class SelectActivity : AppCompatActivity() {
         setContentView(R.layout.activity_select)
 
         myalbums = findViewById(R.id.myalbums)
-        recommend = findViewById(R.id.recommend)
         logout = findViewById(R.id.logout)
         search = findViewById(R.id.searchContent)
 

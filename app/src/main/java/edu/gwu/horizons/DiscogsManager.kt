@@ -59,7 +59,8 @@ class DiscogsManager {
                         albums.add(
                             Album(
                                 title = title,
-                                style = style
+                                style = style,
+                                user = ""
                             )
                         )
                     }

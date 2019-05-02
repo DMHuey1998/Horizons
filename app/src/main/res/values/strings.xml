@@ -15,14 +15,18 @@
 
     --strings for the main menu screen, SelectActivity
     <string name="myalbums">My Albums</string>
-    <string name="recommend">Recommend an album</string>
     <string name="selectTitle">Welcome!</string>
     <string name="logout">Logout</string>
     <string name="searchHint">Search Album or Artist</string>
     <string name="search">Search</string>
+    <string name="test">Test</string>
 
     --row_album strings
     <string name="title">Circa Survive - Juturna</string>
     <string name="style">Emo</string>
+    <string name="add">Add</string>
+
+    --activity_album strings
+    <string name="show">Show</string>
 
 </resources>

@@ -27,7 +27,6 @@ class AlbumsAdapter constructor(private val albums: List<Album>) : RecyclerView.
 
     class ViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
 
-
         val titleTextView: TextView = view.findViewById(R.id.title)
 
         val styleTextView: TextView = view.findViewById(R.id.style)
