@@ -15,7 +15,6 @@
 
     --strings for the main menu screen, SelectActivity
     <string name="myalbums">My Albums</string>
-    <string name="recommend">Recommend an album</string>
     <string name="selectTitle">Welcome!</string>
     <string name="logout">Logout</string>
     <string name="searchHint">Search Album or Artist</string>
