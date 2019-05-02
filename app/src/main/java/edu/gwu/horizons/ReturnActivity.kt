@@ -73,7 +73,7 @@ class ReturnActivity : AppCompatActivity() {
                 }
             )
         }
-        title = getString(R.string.myalbums)
+        title = getString(R.string.search)
 
     }
 
