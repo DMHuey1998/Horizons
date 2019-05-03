@@ -104,14 +104,14 @@ class ReturnActivity : AppCompatActivity() {
 
             Toast.makeText(this, "Added title: $title, style: $style", Toast.LENGTH_LONG).show()    //confirms that an album was added
 
-
-
-            /*if (albumOptions[1] != null) {
-                val selectedAlbum = albumOptions[albumAddIndex]
-                Toast.makeText(this, "Album added Successfully!", Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(this, "There is no album at this index!", Toast.LENGTH_LONG).show()
-            }*/
+            if (selectedAlbum.title.isNotEmpty()) { //adds this album to the firebase database
+                val addAlbum = Album(
+                    title = title,
+                    style = style,
+                    user = email
+                )
+                reference.push().setValue(addAlbum)
+            }
 
         }
 
