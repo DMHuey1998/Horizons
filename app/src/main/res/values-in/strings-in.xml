@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cakrawala</string>
+
+    --strings for the login/signup screen
+    --these are definitely in butchered Indonesian but I didn't feel like calling my uncle to translate properly for me
+
+    <string name="username">Nama pengguna</string>
+    <string name="password">Kata sandi</string>
+    <string name="remember">Ingat</string>
+    <string name="login">Masuk</string>
+    <string name="signup">Daftar</string>
+    <string name="email">E-mail</string>
+    <string name="confirm">Konfirmasi sandi</string>
+    <string name="submit">menyerahkan</string>
+    <string name="back">Kembali untuk masuk</string>
+
+    --strings for the main menu screen, SelectActivity
+    <string name="myalbums">Album Saya</string>
+    <string name="selectTitle">Selamat!</string>
+    <string name="logout">Keluar</string>
+    <string name="searchHint">Cari Album Atau Artis</string>
+    <string name="search">Pencarian</string>
+    <string name="indexHint">Indeks album untuk ditambahkan</string>
+
+    --row_album strings
+    <string name="title">Circa Survive - Juturna</string>
+    <string name="style">Emo</string>
+
+    --activity_album strings
+    <string name="show">Menunjukkan</string>
+</resources>
