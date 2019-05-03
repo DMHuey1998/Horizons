@@ -58,13 +58,15 @@ class MainActivity : AppCompatActivity() {
         login = findViewById(R.id.login)
         remember = findViewById(R.id.remember)
 
-        if (prefs.getBoolean("REMEMBER", false)) {
-            username.addTextChangedListener(textWatcher)
-            password.addTextChangedListener(textWatcher)
-        } else {
-            username.setText(prefs.getString("SAVED_USERNAME", ""))
-            password.setText(prefs.getString("SAVED_PASSWORD", ""))
-        }
+        username.addTextChangedListener(textWatcher)
+        password.addTextChangedListener(textWatcher)
+
+        //Restore the sharedPreferences here
+        val savedUsername = prefs.getString("USERNAME", "")
+        val savedPassword = prefs.getString("PASSWORD", "")
+
+        username.setText(savedUsername)
+        password.setText(savedPassword)
 
         signup.setOnClickListener {
 
@@ -89,6 +91,13 @@ class MainActivity : AppCompatActivity() {
                         "Logged in as: ${currentUser!!.email}",
                         Toast.LENGTH_LONG
                     ).show()
+
+                    remember.setOnCheckedChangeListener { _, isChecked ->
+                        if (isChecked) {
+                            prefs.edit().putString("USERNAME", inputtedUsername).apply()
+                            prefs.edit().putString("PASSWORD", inputtedPassword).apply()
+                        }
+                    }
 
                     val selectIntent = Intent(this, SelectActivity::class.java)
                     startActivity(selectIntent)
@@ -120,6 +129,8 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         Log.d("MainActivity", "onStart called")
+
+
     }
 
     override fun onResume() {
@@ -140,6 +151,20 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d("MainActivity", "onDestroy called")
+
+        remember = findViewById(R.id.remember)
+        username = findViewById(R.id.username)
+
+        val prefs = getSharedPreferences("horizons", Context.MODE_PRIVATE) //sharedPreferences so far
+        val inputtedUsername = username.text.toString().trim()
+        val inputtedPassword = password.text.toString().trim()
+
+        remember.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                prefs.edit().putString("USERNAME", inputtedUsername).apply()
+                prefs.edit().putString("PASSWORD", inputtedPassword).apply()
+            }
+        }
 
     }
 }
