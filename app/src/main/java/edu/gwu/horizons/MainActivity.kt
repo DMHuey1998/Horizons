@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         username = findViewById(R.id.username)
         password = findViewById(R.id.password)
         login = findViewById(R.id.login)
+        remember = findViewById(R.id.remember)
 
         if (prefs.getBoolean("REMEMBER", false)) {
             username.addTextChangedListener(textWatcher)
@@ -89,15 +90,6 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_LONG
                     ).show()
 
-                    //this thing is what is giving me grief right now, sad face. Worry about this stuff on the final build.
-                    /*remember.setOnCheckedChangeListener { _, isChecked ->   //sharedpreferences for the remember checkbox
-                        if (isChecked) {
-                            prefs.edit().putString("SAVED_USERNAME", inputtedUsername).apply()
-                            prefs.edit().putString("SAVED_PASSWORD", inputtedPassword).apply()
-                            prefs.edit().putBoolean("REMEMBER", true).apply()
-                        }
-
-                    }*/
                     val selectIntent = Intent(this, SelectActivity::class.java)
                     startActivity(selectIntent)
 
@@ -148,5 +140,6 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d("MainActivity", "onDestroy called")
+
     }
 }
