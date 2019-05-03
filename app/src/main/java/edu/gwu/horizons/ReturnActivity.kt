@@ -1,23 +1,17 @@
 package edu.gwu.horizons
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import java.lang.Integer.parseInt
-import java.lang.NumberFormatException
-import java.text.NumberFormat
 
 //returns albums based on search parameters, with that parameter being either album or artist
 //in it, you want to find put a button to add that album that will add it to firebase. A floating action button, if you will.
