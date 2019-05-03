@@ -94,6 +94,7 @@ class ReturnActivity : AppCompatActivity() {
 
         add.setOnClickListener {    //for now, shows an alert dialog and adds a sample of albums
             val albumAddIndex: Int = albumIndex.text.toString().toInt()
+
             val email: String = FirebaseAuth.getInstance().currentUser!!.email!!
 
             val selectedAlbum = albumsList[albumAddIndex]
@@ -101,7 +102,9 @@ class ReturnActivity : AppCompatActivity() {
             val title: String = selectedAlbum.title
             val style: String = selectedAlbum.style
 
-            Toast.makeText(this, "Added title: $title, style: $style", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Added title: $title, style: $style", Toast.LENGTH_LONG).show()    //confirms that an album was added
+
+
 
             /*if (albumOptions[1] != null) {
                 val selectedAlbum = albumOptions[albumAddIndex]
