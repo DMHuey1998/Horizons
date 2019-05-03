@@ -15,6 +15,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import java.lang.Integer.parseInt
 import java.lang.NumberFormatException
 import java.text.NumberFormat
 
@@ -92,11 +93,22 @@ class ReturnActivity : AppCompatActivity() {
         }
 
         add.setOnClickListener {    //for now, shows an alert dialog and adds a sample of albums
-            val albumAddIndex: Int = albumIndex.toString().toInt()  //converts the album index to an int, it only takes integers so we don't have to worry about exception handling
-
-            val selectedAlbum: Album
-
+            val albumAddIndex: Int = albumIndex.text.toString().toInt()
             val email: String = FirebaseAuth.getInstance().currentUser!!.email!!
+
+            val selectedAlbum = albumsList[albumAddIndex]
+
+            val title: String = selectedAlbum.title
+            val style: String = selectedAlbum.style
+
+            Toast.makeText(this, "Added title: $title, style: $style", Toast.LENGTH_LONG).show()
+
+            /*if (albumOptions[1] != null) {
+                val selectedAlbum = albumOptions[albumAddIndex]
+                Toast.makeText(this, "Album added Successfully!", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "There is no album at this index!", Toast.LENGTH_LONG).show()
+            }*/
 
         }
 
