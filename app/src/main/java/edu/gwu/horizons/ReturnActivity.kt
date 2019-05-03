@@ -1,5 +1,6 @@
 package edu.gwu.horizons
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AlertDialog
@@ -14,6 +15,9 @@ import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import java.lang.Integer.parseInt
+import java.lang.NumberFormatException
+import java.text.NumberFormat
 
 //returns albums based on search parameters, with that parameter being either album or artist
 //in it, you want to find put a button to add that album that will add it to firebase. A floating action button, if you will.
@@ -23,6 +27,7 @@ class ReturnActivity : AppCompatActivity() {
     private val albumsList: MutableList<Album> = mutableListOf()    //list of albums that will be returned
 
     private lateinit var searchArtist: EditText
+    private lateinit var albumIndex: EditText
     private lateinit var search: Button
     private lateinit var add: FloatingActionButton
     private lateinit var firebaseDatabase: FirebaseDatabase
@@ -52,6 +57,7 @@ class ReturnActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         searchArtist = findViewById(R.id.searchArtist)
+        albumIndex = findViewById(R.id.albumIndex)
         search = findViewById(R.id.search)
         add = findViewById(R.id.add)
 
@@ -59,6 +65,7 @@ class ReturnActivity : AppCompatActivity() {
         firebaseDatabase = FirebaseDatabase.getInstance()
 
         searchArtist.addTextChangedListener(textWatcher)
+        albumIndex.addTextChangedListener(textWatcher)
 
         val reference = firebaseDatabase.getReference("albums")
 
@@ -86,30 +93,27 @@ class ReturnActivity : AppCompatActivity() {
         }
 
         add.setOnClickListener {    //for now, shows an alert dialog and adds a sample of albums
-            val arrayAdapter = ArrayAdapter<Album>(this, android.R.layout.select_dialog_singlechoice)
-            arrayAdapter.addAll(albumsList) //setup for the radio adapter of albums
+            val albumAddIndex: Int = albumIndex.text.toString().toInt()
 
             val email: String = FirebaseAuth.getInstance().currentUser!!.email!!
-            val albums = generateTestAlbums(email)
 
-            AlertDialog.Builder(this)
+            val selectedAlbum = albumsList[albumAddIndex]
 
-                .setTitle("Choose Album")
-                .setAdapter(arrayAdapter) { _, _ -> //this is the radio menu for all the choices you'll see
+            val title: String = selectedAlbum.title
+            val style: String = selectedAlbum.style
 
-                }
-                .setNegativeButton("CANCEL") { dialog, _ ->
-                    dialog.cancel()
-                }
-                .setPositiveButton("OKAY") { _, _ ->    //will add the album that you select, for now will add the preset albums
-                    for (i in albums) {
-                        reference.push().setValue(i)
-                    }
-                }
-                .show()
+            Toast.makeText(this, "Added title: $title, style: $style", Toast.LENGTH_LONG).show()    //confirms that an album was added
+
+            if (selectedAlbum.title.isNotEmpty()) { //adds this album to the firebase database
+                val addAlbum = Album(
+                    title = title,
+                    style = style,
+                    user = email
+                )
+                reference.push().setValue(addAlbum)
+            }
+
         }
-
-        title = getString(R.string.search)
 
     }
 
