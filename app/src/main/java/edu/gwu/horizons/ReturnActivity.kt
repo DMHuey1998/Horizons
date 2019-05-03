@@ -86,7 +86,6 @@ class ReturnActivity : AppCompatActivity() {
         }
 
         add.setOnClickListener {    //for now, shows an alert dialog and adds a sample of albums
-
             val arrayAdapter = ArrayAdapter<Album>(this, android.R.layout.select_dialog_singlechoice)
             arrayAdapter.addAll(albumsList) //setup for the radio adapter of albums
 
@@ -96,7 +95,6 @@ class ReturnActivity : AppCompatActivity() {
             AlertDialog.Builder(this)
 
                 .setTitle("Choose Album")
-                .setMessage("Select the album you would like to add:")
                 .setAdapter(arrayAdapter) { _, _ -> //this is the radio menu for all the choices you'll see
 
                 }
