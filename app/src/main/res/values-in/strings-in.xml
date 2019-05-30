@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Cakrawala</string>
 
+--add comment for commit, which is finnicky
     --strings for the login/signup screen
     --these are definitely in butchered Indonesian but I didn't feel like calling my uncle to translate properly for me
 
