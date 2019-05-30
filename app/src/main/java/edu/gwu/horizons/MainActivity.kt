@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                 inputtedUsername,
                 inputtedPassword
             ).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
+                if (task.isSuccessful) {	//checks if the email/password combo is right or wrong
 
                     val currentUser: FirebaseUser? = firebaseAuth.currentUser
                     Toast.makeText(
